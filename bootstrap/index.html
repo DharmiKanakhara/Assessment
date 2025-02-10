@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Difference calculator</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="container mt-5 p-5 w-25">
+        <h2 class="text-center mb-4">Date interval</h2>
+        <div class="div text-center">
+            <label for="">From :</label>
+            <input type="date" class="startdate">
+        </div>
+        <div class="div text-center">
+            <label for="">To :</label>
+            <input type="date" class="enddate">
+        </div>
+        <button class="btn btn-primary ms-5 w-50 mt-3 p-2" id="calbtn" >Calculate</button>
+        <div class="result" class="mt-5 text-white"></div>
+    </div>
+
+    <script>
+         $(document).ready(function(){
+            $('#calbtn').click(function(){
+                let startdate =new Date( $('.startdate').val());
+                let enddate = new Date($(".enddate").val());
+                
+                let m = startdate.getMonth() - enddate.getMonth()
+                let years = enddate.getFullYear() - startdate.getFullYear();
+                if(m<0 || (m===0 && enddate.getDate() < startdate.getDate()))
+            {
+                years--
+            }
+                let months = (years * 12) + (enddate.getMonth() - startdate.getMonth());
+                let days = enddate.getDate() - startdate.getDate();
+                let totalDays = Math.floor((enddate - startdate) / (1000 * 60 * 60 * 24));
+                let weeks = Math.floor(totalDays / 7);
+
+
+                $(".result").html(`
+                <div class="bg-primary p-3 text-white m-3"> 
+                    <div class="border border-white">Difference between ${startdate.getDate()}/${(startdate.getMonth())+1}/${startdate.getFullYear()} and ${enddate.getDate()}/${(enddate.getMonth())+1}/${enddate.getFullYear()}</div>
+                    years : ${years}<br>
+                    month : ${months}<br>
+                    weeks : ${weeks}<br>
+                    days : ${totalDays}
+                    </div>`)
+                
+            })
+         })
+    </script>
+</body>
+
+</html>
